@@ -311,8 +311,8 @@ if(UNITTEST)
     configure_file(octave/tnewamp1.m.in octave/tnewamp1.m)
     add_test(NAME test_codec2_700c_octave_port
              COMMAND sh -c "cd ${CMAKE_CURRENT_BINARY_DIR}/src;
-                            ./c2sim ../../raw/cq_ref.raw --phase0 --postfilter --dump cq_ref --lpc 10 --dump_pitch_e cq_ref_pitche.txt; \
-                            cd ${CMAKE_CURRENT_BINARY_DIR}/unittest; ./tnewamp1 ../../raw/cq_ref.raw; \
+	     ./c2sim ${CMAKE_SOURCE_DIR}/raw/cq_ref.raw --phase0 --postfilter --dump cq_ref --lpc 10 --dump_pitch_e cq_ref_pitche.txt; \
+	     cd ${CMAKE_CURRENT_BINARY_DIR}/unittest; ./tnewamp1 ${CMAKE_SOURCE_DIR}/raw/cq_ref.raw; \
                             cd ${CMAKE_CURRENT_BINARY_DIR}/octave;  \
                             octave --no-gui -qf run_tnewamp1.m")
              set_tests_properties(test_codec2_700c_octave_port PROPERTIES PASS_REGULAR_EXPRESSION "fails: 0")
