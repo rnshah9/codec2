@@ -175,7 +175,7 @@ int main(int argc, char *argv[]) {
     }
 
     ofdm_config->fs = 8000.0;			/* Sample Frequency */
-    ofdm_config->ofdm_timing_mx_thresh = 0.30;
+    ofdm_config->timing_mx_thresh = 0.30;
     ofdm_config->ftwindowwidth = 11;
     ofdm_config->bps = 2;   			/* Bits per Symbol */
     ofdm_config->txtbits = 4; 			/* number of auxiliary data bits */
@@ -191,11 +191,11 @@ int main(int argc, char *argv[]) {
     FREE(ofdm_config);
 
     /* Get a copy of the actual modem config */
-    ofdm_config = ofdm_get_config_param();
+    ofdm_config = ofdm_get_config_param(ofdm);
 
     set_up_hra_112_112(&ldpc, ofdm_config);
 
-    ofdm_bitsperframe = ofdm_get_bits_per_frame();
+    ofdm_bitsperframe = ofdm_get_bits_per_frame(ofdm);
     ofdm_rowsperframe = ofdm_bitsperframe / (ofdm_config->nc * ofdm_config->bps);
     ofdm_nuwbits = (ofdm_config->ns - 1) * ofdm_config->bps - ofdm_config->txtbits;
     ofdm_ntxtbits = ofdm_config->txtbits;
@@ -203,7 +203,7 @@ int main(int argc, char *argv[]) {
 
     ofdm_set_verbose(ofdm, config_verbose);
 
-    int Nmaxsamperframe = ofdm_get_max_samples_per_frame();
+    int Nmaxsamperframe = ofdm_get_max_samples_per_frame(ofdm);
 
     int data_bits_per_frame = ldpc.data_bits_per_frame;
     int coded_bits_per_frame = ldpc.coded_bits_per_frame;
