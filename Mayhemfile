@@ -1,0 +1,6 @@
+project: rnshah9/codec2
+target: c2enc
+
+cmds:
+  - cmd: /repo/build/src/c2enc 2400 @@ out.bit
+    filepath: /test.raw
