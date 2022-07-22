@@ -2,4 +2,4 @@ project: codec2
 target: c2enc
 
 cmds:
-  - cmd: /repo/build/src/c2enc 2400 @@ /dev/null
+  - cmd: /c2enc 2400 @@ /dev/null
