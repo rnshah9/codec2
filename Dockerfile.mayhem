@@ -13,4 +13,4 @@ RUN make install
 FROM ubuntu:20.04 as package
 COPY --from=builder /install /install
 ENV LD_LIBRARY_PATH=/install/lib
-COPY --from=builder /repo/build/src/c2enc /repo/build/src/c2enc
+COPY --from=builder /repo/build/src/c2enc /
