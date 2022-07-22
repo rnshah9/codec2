@@ -2,18 +2,15 @@ FROM --platform=linux/amd64 ubuntu:20.04 as builder
 
 RUN apt-get update
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y clang 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cmake
-ADD . /repo
-WORKDIR /repo/build
-RUN cmake ..
-RUN make -j8
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y clang cmake
 
-RUN mkdir -p /deps
-RUN ldd /repo/build/src/c2enc | tr -s '[:blank:]' '\n' | grep '^/' | xargs -I % sh -c 'cp % /deps;'
+COPY . /repo
+WORKDIR /repo/build
+RUN cmake .. -DCMAKE_INSTALL_PREFIX=/install
+RUN make -j8
+RUN make install
 
 FROM ubuntu:20.04 as package
-
-COPY --from=builder /deps /deps
+COPY --from=builder /install /install
+ENV LD_LIBRARY_PATH=/install/lib
 COPY --from=builder /repo/build/src/c2enc /repo/build/src/c2enc
-ENV LD_LIBRARY_PATH=/deps
